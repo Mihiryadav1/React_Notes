@@ -7,11 +7,11 @@ const Notes = (prop) => {
         <>
 
             <div className="p-4">
-                <div className="grid-notes rounded d-flex flex-column justify-content-between" style={{ backgroundColor: prop.color }}>
+                <div className="grid-notes rounded d-flex flex-column justify-content-between" style={{ backgroundColor:'white' }}>
                     <p className="info">{task}</p>
                     <div className="bottom-icons d-flex justify-content-between">
                         <div className="date">{date}</div>
-                        <div className="icon-delete" onClick={ondelete}><i class="fa-solid fa-xmark"></i></div>
+                        <div className="icon-delete" onClick={ondelete}><i className="fa-solid fa-xmark"></i></div>
                     </div>
                 </div>
 

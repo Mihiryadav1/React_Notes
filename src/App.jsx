@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-let global_id = 0;
+import { v4 as uuidv4 } from 'uuid'
 import "./App.css"
+let global_id = 0;
 import Notes from './components/Notes'
 const App = () => {
 
   const [val, setval] = useState('');
-  const [color, setcolor] = useState('');
+  const [white, setwhite] = useState('white');
   const [list, setlist] = useState([
 
   ])
@@ -24,13 +25,25 @@ const App = () => {
     if (val.trim() != '') {
       const newNote = {
         info: val,
-        id: ++global_id,
+        id: uuidv4(),
         date: getdate()
       };
       setlist([...list, newNote]);
       setval('');
+      console.log(newNote.id);
     }
   }
+  //Dark Theme
+  const dark = () => {
+    const body = document.body;
+    if (body.style.backgroundColor == "white") {
+      body.style.backgroundColor = "black"
+      setwhite('white');
+    }
+    else
+      body.style.backgroundColor = "white"
+  }
+  const note = document.querySelector(".grid-notes");
 
 
 
@@ -41,10 +54,10 @@ const App = () => {
         {/* input  */}
         <div className="p-4">
           <div className="input-group flex-nowrap">
-            <span className="input-group-text bg-black text-light" id="addon-wrapping"><i class="fa-solid fa-note-sticky"></i></span>
+            <span className="input-group-text bg-black text-light" id="addon-wrapping"><i className="fa-solid fa-note-sticky"></i></span>
             <input type="text" value={val} onChange={(e) => setval(e.target.value)} className="form-control" placeholder="Add Note" aria-label="Username" aria-describedby="addon-wrapping" />
             <button onClick={addNote} className="btn btn-dark" type="button" id="button-addon2">Add Note</button>
-
+            <button className="btn btn-dark mx-1" onClick={dark}>Dark Theme</button>
           </div>
           <div className="container-fluid p-1 pt-3 d-flex justify-content-evenly">
           </div>
@@ -52,7 +65,7 @@ const App = () => {
         <div>
           <div className="note-container"> {list.map((item) => {
             return (<>
-              <Notes key={item.id} color={color} task={item.info} date={item.date}  ondelete={()=>{deleteNote(item.id)}}/>
+              <Notes key={item.id} color={white} task={item.info} date={item.date} ondelete={() => { deleteNote(item.id) }} />
             </>
             )
           })}</div>
